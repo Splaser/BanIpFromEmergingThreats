@@ -11,6 +11,12 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+# 检查是否是HTML
+if grep -q '<!DOCTYPE html>' /tmp/etblock.txt; then
+    echo "[✘] 下载内容错误，可能被墙或链接失效。"
+    exit 1
+fi
+
 echo "[*] 创建 nftables 表/链/set..."
 
 # 创建 inet filter 表（如果不存在）
